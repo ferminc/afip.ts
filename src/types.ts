@@ -2,6 +2,7 @@ import { IOptions } from "soap";
 import { ILoginCmsReturn } from "./soap/interfaces/LoginCMSService/LoginCms";
 import { ServiceSoapTypes } from "./soap/interfaces/Service/ServiceSoap";
 import {
+  IFECAEASolicitarInput,
   IFEParamGetPtosVentaOutput,
   ServiceSoap12Types,
 } from "./soap/interfaces/Service/ServiceSoap12";
@@ -129,6 +130,12 @@ export interface IVoucher {
   Iva?: IIva[];
   Opcionales?: IOpcional[];
   Compradores?: IComprador[];
+  Actividades?: IActividades[];
+}
+
+export interface IVoucherCAEA extends IVoucher {
+  CAEA: string;
+  CbteFchHsGen: string;
 }
 
 export interface INextVoucher
@@ -149,6 +156,10 @@ export interface IComprador {
   DocTipo: number;
   DocNro: number;
   Porcentaje: number;
+}
+
+export interface IActividades {
+  Id: number;
 }
 
 export interface IIva {
@@ -178,3 +189,17 @@ export interface ICreateVoucherResult {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface IGetSalesPointsResult extends IFEParamGetPtosVentaOutput { }
+
+
+export interface ICAEARequest extends IFECAEASolicitarInput {
+  /**
+   * Periodo con formato YYYYMM
+   */
+  Periodo: number;
+  /**
+   * 1: corresponde a la primera quincena (1 al 15) 
+   * 
+   * 2: corresponde a la segunda quincena (16 al último día del mes)
+   */
+  Orden: 1 | 2;
+}

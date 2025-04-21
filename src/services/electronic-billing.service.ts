@@ -1,5 +1,7 @@
 import { AfipService } from "./afip.service";
 import {
+  IFECAEASinMovimientoInformarInput,
+  IFECAEASinMovimientoConsultarInput,
   IFEDummyOutput,
   IServiceSoap12Soap,
   ServiceSoap12Types,
@@ -12,6 +14,8 @@ import {
   IVoucher,
   ICreateVoucherResult,
   INextVoucher,
+  ICAEARequest,
+  IVoucherCAEA,
 } from "../types";
 import { EndpointsEnum } from "../enums";
 
@@ -25,6 +29,96 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
       serviceName: ServiceNamesEnum.WSFE,
       v12: true,
     });
+  }
+
+  /**
+   * 
+   * @param req 
+   * 
+   **/
+    async consultCAEAStatus(req: IFECAEASinMovimientoConsultarInput) {
+      const client = await this.getClient();
+      const [output] = await client.FECAEASinMovimientoConsultarAsync(req);
+      
+      return output;
+    }
+  
+  /**
+   * 
+   * @param req object {
+   *  
+   * PtoVta: number;
+   * 
+   * CAEA: string;
+   * }
+   * 
+   **/
+  async informUnusedCAEA(req: IFECAEASinMovimientoInformarInput) {
+    const client = await this.getClient();
+    const [output] = await client.FECAEASinMovimientoInformarAsync(req);
+    
+    return output;
+  }
+
+  /**
+   * Solicitar un CAEA (CAE Anticipado)
+   * 
+   * @param req 
+   **/
+  async createCAEARequest(req: ICAEARequest) {
+    const client = await this.getClient();
+    const [output] = await client.FECAEASolicitarAsync({
+      Periodo: req.Periodo,
+      Orden: req.Orden
+    });
+    
+    const {FECAEASolicitarResult} = output;
+
+    return {
+      ...FECAEASolicitarResult.ResultGet,
+      response: FECAEASolicitarResult,
+    };
+  }
+
+  /**
+   * Register the voucher information for a previously 
+   * requested CAEA
+   * 
+   * @param req 
+   **/
+  async registerCAEAVoucer(req: IVoucherCAEA) {
+    const client = await this.getClient();
+    const [output] = await client.FECAEARegInformativoAsync({
+      FeCAEARegInfReq: {
+        FeCabReq: {
+          CantReg: req.CbteHasta - req.CbteDesde + 1,
+          PtoVta: req.PtoVta,
+          CbteTipo: req.CbteTipo,
+        },
+        FeDetReq: {
+          FECAEADetRequest: [
+            {
+              ...req,
+              Tributos: req.Tributos ? { Tributo: req.Tributos } : undefined,
+              Iva: req.Iva ? { AlicIva: req.Iva } : undefined,
+              CbtesAsoc: req.CbtesAsoc
+                ? { CbteAsoc: req.CbtesAsoc }
+                : undefined,
+              Compradores: req.Compradores
+                ? { Comprador: req.Compradores }
+                : undefined,
+              Opcionales: req.Opcionales
+                ? { Opcional: req.Opcionales }
+                : undefined,
+              Actividades: req.Actividades 
+                ? {Actividad: req.Actividades} 
+                : undefined
+            },
+          ],
+        },
+      },
+    });
+    return output;
   }
 
   /**
@@ -104,6 +198,9 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
               Opcionales: req.Opcionales
                 ? { Opcional: req.Opcionales }
                 : undefined,
+              Actividades: req.Actividades 
+                ? {Actividad: req.Actividades} 
+                : undefined
             },
           ],
         },
@@ -262,5 +359,12 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
    */
   async createNextInvoice(req: INextVoucher) {
     return this.createNextVoucher(req);
+  }
+  
+  /**
+   * Alias for registerCAEAVoucer method.
+   */
+  async registerCAEAInvoice(req: IVoucherCAEA) {
+    return this.registerCAEAVoucer(req);
   }
 }

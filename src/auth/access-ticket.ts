@@ -1,5 +1,5 @@
 import { IAccessTicket, ILoginCredentials, WSAuthParam } from "./../types";
-import moment from "moment";
+
 import {
   ILoginCmsReturnCredentials,
   ILoginCmsReturnHeaders,
@@ -23,7 +23,7 @@ export class AccessTicket implements IAccessTicket {
   }
 
   getExpiration(): Date {
-    return moment(this.header[1].expirationtime).toDate();
+    return new Date(this.header[1].expirationtime);
   }
 
   getHeaders(): ILoginCmsReturnHeaders {
@@ -45,6 +45,6 @@ export class AccessTicket implements IAccessTicket {
   }
 
   public isExpired(): boolean {
-    return moment(this.getExpiration()).isBefore(new Date());
+    return this.getExpiration() < (new Date());
   }
 }

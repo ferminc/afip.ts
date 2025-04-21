@@ -15,7 +15,7 @@ export interface IFECAESolicitarOutput {
 }
 
 export interface IFECompTotXRequestInput {
-  Auth: ServiceSoap12Types.IAuth;
+ // Auth: ServiceSoap12Types.IAuth;
 }
 
 export interface IFECompTotXRequestOutput {
@@ -50,7 +50,7 @@ export interface IFECompConsultarOutput {
 }
 
 export interface IFECAEARegInformativoInput {
-  Auth: ServiceSoap12Types.IAuth;
+ // Auth: ServiceSoap12Types.IAuth;
   FeCAEARegInfReq: ServiceSoap12Types.IFeCAEARegInfReq;
 }
 
@@ -59,7 +59,7 @@ export interface IFECAEARegInformativoOutput {
 }
 
 export interface IFECAEASolicitarInput {
-  Auth: ServiceSoap12Types.IAuth;
+ // Auth: ServiceSoap12Types.IAuth;
   /** s:int(undefined) */
   Periodo: number; // int;
   /** s:short(undefined) */
@@ -71,7 +71,7 @@ export interface IFECAEASolicitarOutput {
 }
 
 export interface IFECAEASinMovimientoConsultarInput {
-  Auth: ServiceSoap12Types.IAuth;
+ // Auth: ServiceSoap12Types.IAuth;
   /** s:string(undefined) */
   CAEA: string;
   /** s:int(undefined) */
@@ -83,7 +83,7 @@ export interface IFECAEASinMovimientoConsultarOutput {
 }
 
 export interface IFECAEASinMovimientoInformarInput {
-  Auth: ServiceSoap12Types.IAuth;
+ // Auth: ServiceSoap12Types.IAuth;
   /** s:int(undefined) */
   PtoVta: number; // int;
   /** s:string(undefined) */
@@ -95,7 +95,7 @@ export interface IFECAEASinMovimientoInformarOutput {
 }
 
 export interface IFECAEAConsultarInput {
-  Auth: ServiceSoap12Types.IAuth;
+ // Auth: ServiceSoap12Types.IAuth;
   /** s:int(undefined) */
   Periodo: number; // int;
   /** s:short(undefined) */
@@ -107,9 +107,11 @@ export interface IFECAEAConsultarOutput {
 }
 
 export interface IFEParamGetCotizacionInput {
-  Auth: ServiceSoap12Types.IAuth;
+ // Auth: ServiceSoap12Types.IAuth;
   /** s:string(undefined) */
   MonId: string;
+  /** s:string(undefined) */
+  FchCotiz: string;
 }
 
 export interface IFEParamGetCotizacionOutput {
@@ -149,7 +151,7 @@ export interface IFEParamGetTiposOpcionalOutput {
 }
 
 export interface IFEParamGetTiposConceptoInput {
-  // Auth: ServiceSoap12Types.IAuth;
+ // Auth: ServiceSoap12Types.IAuth;
 }
 
 export interface IFEParamGetTiposConceptoOutput {
@@ -157,7 +159,7 @@ export interface IFEParamGetTiposConceptoOutput {
 }
 
 export interface IFEParamGetPtosVentaInput {
-  // Auth: ServiceSoap12Types.IAuth;
+ // Auth: ServiceSoap12Types.IAuth;
 }
 
 export interface IFEParamGetPtosVentaOutput {
@@ -172,8 +174,18 @@ export interface IFEParamGetTiposCbteOutput {
   FEParamGetTiposCbteResult: ServiceSoap12Types.IFEParamGetTiposCbteResult;
 }
 
+export interface IFEParamGetCondicionIvaReceptorInput {
+ // Auth: ServiceSoap12Types.IAuth;
+  /** s:string(undefined) */
+  ClaseCmp: string;
+}
+
+export interface IFEParamGetCondicionIvaReceptorOutput {
+  FEParamGetCondicionIvaReceptorResult: ServiceSoap12Types.IFEParamGetCondicionIvaReceptorResult;
+}
+
 export interface IFEParamGetTiposDocInput {
-  // Auth: ServiceSoap12Types.IAuth;
+ // Auth: ServiceSoap12Types.IAuth;
 }
 
 export interface IFEParamGetTiposDocOutput {
@@ -181,11 +193,19 @@ export interface IFEParamGetTiposDocOutput {
 }
 
 export interface IFEParamGetTiposPaisesInput {
-  Auth: ServiceSoap12Types.IAuth;
+ // Auth: ServiceSoap12Types.IAuth;
 }
 
 export interface IFEParamGetTiposPaisesOutput {
   FEParamGetTiposPaisesResult: ServiceSoap12Types.IFEParamGetTiposPaisesResult;
+}
+
+export interface IFEParamGetActividadesInput {
+ // Auth: ServiceSoap12Types.IAuth;
+}
+
+export interface IFEParamGetActividadesOutput {
+  FEParamGetActividadesResult: ServiceSoap12Types.IFEParamGetActividadesResult;
 }
 
 export interface IServiceSoap12Soap extends Client {
@@ -247,12 +267,12 @@ export interface IServiceSoap12Soap extends Client {
     extraHeaders?: any
   ) => void;
   FECompUltimoAutorizadoAsync: (
-    input: IFECompUltimoAutorizadoInput,
-    options?: any,
-    extraHeaders?: any
-  ) => Promise<
-    [IFECompUltimoAutorizadoOutput, string, { [k: string]: any }, string]
-  >;
+      input: IFECompUltimoAutorizadoInput,
+      options?: any,
+      extraHeaders?: any
+    ) => Promise<
+      [IFECompUltimoAutorizadoOutput, string, { [k: string]: any }, string]
+    >;
   FECompConsultar: (
     input: IFECompConsultarInput,
     cb: (
@@ -265,10 +285,10 @@ export interface IServiceSoap12Soap extends Client {
     extraHeaders?: any
   ) => void;
   FECompConsultarAsync: (
-    input: IFECompConsultarInput,
-    options?: any,
-    extraHeaders?: any
-  ) => Promise<[IFECompConsultarOutput, string, { [k: string]: any }, string]>;
+      input: IFECompConsultarInput,
+      options?: any,
+      extraHeaders?: any
+    ) => Promise<[IFECompConsultarOutput, string, { [k: string]: any }, string]>;
   FECAEARegInformativo: (
     input: IFECAEARegInformativoInput,
     cb: (
@@ -280,13 +300,10 @@ export interface IServiceSoap12Soap extends Client {
     options?: any,
     extraHeaders?: any
   ) => void;
-  FECAEARegInformativoAsync: (
-    input: IFECAEARegInformativoInput,
-    options?: any,
-    extraHeaders?: any
-  ) => Promise<
-    [IFECAEARegInformativoOutput, string, { [k: string]: any }, string]
-  >;
+  FECAEARegInformativoAsync: SoapAsyncFunc<
+  IFECAEARegInformativoInput,
+  IFECAEARegInformativoOutput
+>;
   FECAEASolicitar: (
     input: IFECAEASolicitarInput,
     cb: (
@@ -299,10 +316,10 @@ export interface IServiceSoap12Soap extends Client {
     extraHeaders?: any
   ) => void;
   FECAEASolicitarAsync: (
-    input: IFECAEASolicitarInput,
-    options?: any,
-    extraHeaders?: any
-  ) => Promise<[IFECAEASolicitarOutput, string, { [k: string]: any }, string]>;
+      input: IFECAEASolicitarInput,
+      options?: any,
+      extraHeaders?: any
+    ) => Promise<[IFECAEASolicitarOutput, string, { [k: string]: any }, string]>;
   FECAEASinMovimientoConsultar: (
     input: IFECAEASinMovimientoConsultarInput,
     cb: (
@@ -314,12 +331,9 @@ export interface IServiceSoap12Soap extends Client {
     options?: any,
     extraHeaders?: any
   ) => void;
-  FECAEASinMovimientoConsultarAsync: (
-    input: IFECAEASinMovimientoConsultarInput,
-    options?: any,
-    extraHeaders?: any
-  ) => Promise<
-    [IFECAEASinMovimientoConsultarOutput, string, { [k: string]: any }, string]
+  FECAEASinMovimientoConsultarAsync: SoapAsyncFunc<
+    IFECAEASinMovimientoConsultarInput,
+    IFECAEASinMovimientoConsultarOutput
   >;
   FECAEASinMovimientoInformar: (
     input: IFECAEASinMovimientoInformarInput,
@@ -332,12 +346,9 @@ export interface IServiceSoap12Soap extends Client {
     options?: any,
     extraHeaders?: any
   ) => void;
-  FECAEASinMovimientoInformarAsync: (
-    input: IFECAEASinMovimientoInformarInput,
-    options?: any,
-    extraHeaders?: any
-  ) => Promise<
-    [IFECAEASinMovimientoInformarOutput, string, { [k: string]: any }, string]
+  FECAEASinMovimientoInformarAsync: SoapAsyncFunc<
+    IFECAEASinMovimientoInformarInput,
+    IFECAEASinMovimientoInformarOutput
   >;
   FECAEAConsultar: (
     input: IFECAEAConsultarInput,
@@ -350,11 +361,10 @@ export interface IServiceSoap12Soap extends Client {
     options?: any,
     extraHeaders?: any
   ) => void;
-  FECAEAConsultarAsync: (
-    input: IFECAEAConsultarInput,
-    options?: any,
-    extraHeaders?: any
-  ) => Promise<[IFECAEAConsultarInput, string, { [k: string]: any }, string]>;
+  FECAEAConsultarAsync: SoapAsyncFunc<
+    IFECAEAConsultarInput,
+    IFECAEAConsultarInput
+  >;
   FEParamGetCotizacion: (
     input: IFEParamGetCotizacionInput,
     cb: (
@@ -367,12 +377,12 @@ export interface IServiceSoap12Soap extends Client {
     extraHeaders?: any
   ) => void;
   FEParamGetCotizacionAsync: (
-    input: IFEParamGetCotizacionInput,
-    options?: any,
-    extraHeaders?: any
-  ) => Promise<
-    [IFEParamGetCotizacionOutput, string, { [k: string]: any }, string]
-  >;
+      input: IFEParamGetCotizacionInput,
+      options?: any,
+      extraHeaders?: any
+    ) => Promise<
+      [IFEParamGetCotizacionOutput, string, { [k: string]: any }, string]
+    >;
   FEParamGetTiposTributos: (
     input: IFEParamGetTiposTributosInput,
     cb: (
@@ -403,10 +413,6 @@ export interface IServiceSoap12Soap extends Client {
     IFEParamGetTiposMonedasInput,
     IFEParamGetTiposMonedasOutput
   >;
-  FEParamGetTiposIvaAsync: SoapAsyncFunc<
-    IFEParamGetTiposIvaInput,
-    IFEParamGetTiposIvaOutput
-  >;
   FEParamGetTiposIva: (
     input: IFEParamGetTiposIvaInput,
     cb: (
@@ -418,10 +424,9 @@ export interface IServiceSoap12Soap extends Client {
     options?: any,
     extraHeaders?: any
   ) => void;
-
-  FEParamGetTiposOpcionalAsync: SoapAsyncFunc<
-    IFEParamGetTiposOpcionalInput,
-    IFEParamGetTiposOpcionalOutput
+  FEParamGetTiposIvaAsync: SoapAsyncFunc<
+    IFEParamGetTiposIvaInput,
+    IFEParamGetTiposIvaOutput
   >;
   FEParamGetTiposOpcional: (
     input: IFEParamGetTiposOpcionalInput,
@@ -434,9 +439,9 @@ export interface IServiceSoap12Soap extends Client {
     options?: any,
     extraHeaders?: any
   ) => void;
-  FEParamGetTiposConceptoAsync: SoapAsyncFunc<
-    IFEParamGetTiposConceptoInput,
-    IFEParamGetTiposConceptoOutput
+  FEParamGetTiposOpcionalAsync: SoapAsyncFunc<
+    IFEParamGetTiposOpcionalInput,
+    IFEParamGetTiposOpcionalOutput
   >;
   FEParamGetTiposConcepto: (
     input: IFEParamGetTiposConceptoInput,
@@ -449,12 +454,9 @@ export interface IServiceSoap12Soap extends Client {
     options?: any,
     extraHeaders?: any
   ) => void;
-  FEParamGetPtosVentaAsync: (
-    input: IFEParamGetPtosVentaInput,
-    options?: any,
-    extraHeaders?: any
-  ) => Promise<
-    [IFEParamGetPtosVentaOutput, string, { [k: string]: any }, string]
+  FEParamGetTiposConceptoAsync: SoapAsyncFunc<
+    IFEParamGetTiposConceptoInput,
+    IFEParamGetTiposConceptoOutput
   >;
   FEParamGetPtosVenta: (
     input: IFEParamGetPtosVentaInput,
@@ -467,6 +469,13 @@ export interface IServiceSoap12Soap extends Client {
     options?: any,
     extraHeaders?: any
   ) => void;
+  FEParamGetPtosVentaAsync: (
+      input: IFEParamGetPtosVentaInput,
+      options?: any,
+      extraHeaders?: any
+    ) => Promise<
+      [IFEParamGetPtosVentaOutput, string, { [k: string]: any }, string]
+    >;
   FEParamGetTiposCbte: (
     input: IFEParamGetTiposCbteInput,
     cb: (
@@ -482,11 +491,22 @@ export interface IServiceSoap12Soap extends Client {
     input: IFEParamGetTiposCbteInput,
     options?: any,
     extraHeaders?: any
-  ) => [IFEParamGetTiposCbteOutput, string, { [k: string]: any }, string];
-  FEParamGetTiposDocAsync: SoapAsyncFunc<
-    IFEParamGetTiposDocInput,
-    IFEParamGetTiposDocOutput
-  >;
+  ) => [IFEParamGetTiposCbteOutput, string, { [k: string]: any }, string]; 
+  FEParamGetCondicionIvaReceptor: (
+    input: IFEParamGetCondicionIvaReceptorInput,
+    cb: (
+      err: any | null,
+      result: IFEParamGetCondicionIvaReceptorOutput,
+      raw: string,
+      soapHeader: { [k: string]: any }
+    ) => any,
+    options?: any,
+    extraHeaders?: any
+  ) => void;
+  FEParamGetCondicionIvaReceptorAsync: SoapAsyncFunc<
+  IFEParamGetCondicionIvaReceptorInput,
+  IFEParamGetCondicionIvaReceptorOutput
+>;
   FEParamGetTiposDoc: (
     input: IFEParamGetTiposDocInput,
     cb: (
@@ -498,9 +518,9 @@ export interface IServiceSoap12Soap extends Client {
     options?: any,
     extraHeaders?: any
   ) => void;
-  FEParamGetTiposPaisesAsync: SoapAsyncFunc<
-    IFEParamGetTiposPaisesInput,
-    IFEParamGetTiposPaisesOutput
+  FEParamGetTiposDocAsync: SoapAsyncFunc<
+    IFEParamGetTiposDocInput,
+    IFEParamGetTiposDocOutput
   >;
   FEParamGetTiposPaises: (
     input: IFEParamGetTiposPaisesInput,
@@ -513,6 +533,25 @@ export interface IServiceSoap12Soap extends Client {
     options?: any,
     extraHeaders?: any
   ) => void;
+  FEParamGetTiposPaisesAsync: SoapAsyncFunc<
+    IFEParamGetTiposPaisesInput,
+    IFEParamGetTiposPaisesOutput
+  >;
+  FEParamGetActividades: (
+    input: IFEParamGetActividadesInput,
+    cb: (
+      err: any | null,
+      result: IFEParamGetActividadesOutput,
+      raw: string,
+      soapHeader: { [k: string]: any }
+    ) => any,
+    options?: any,
+    extraHeaders?: any
+  ) => void;
+  FEParamGetActividadesAsync: SoapAsyncFunc<
+  IFEParamGetActividadesInput,
+  IFEParamGetActividadesOutput
+  >;
 }
 
 export namespace ServiceSoap12Types {
@@ -526,17 +565,17 @@ export namespace ServiceSoap12Types {
   }
   export interface IFeCabReq {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    CantReg: number; // int;
+    CantReg: number;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    PtoVta: number; // int;
+    PtoVta: number;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    CbteTipo: number; // int;
+    CbteTipo: number;
   }
   export interface ICbteAsoc {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    Tipo: number; // int;
+    Tipo: number;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    PtoVta: number; // int;
+    PtoVta: number;
     /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
     Nro: number;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
@@ -564,7 +603,7 @@ export namespace ServiceSoap12Types {
   }
   export interface IAlicIva {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    Id: number; // int;
+    Id: number;
     /** http://ar.gov.afip.dif.FEV1/#s:double(undefined) */
     BaseImp: number;
     /** http://ar.gov.afip.dif.FEV1/#s:double(undefined) */
@@ -584,7 +623,7 @@ export namespace ServiceSoap12Types {
   }
   export interface IComprador {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    DocTipo: number; // int;
+    DocTipo: number;
     /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
     DocNro: number;
     /** http://ar.gov.afip.dif.FEV1/#s:double(undefined) */
@@ -599,11 +638,18 @@ export namespace ServiceSoap12Types {
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     FchHasta: string;
   }
+  export interface IActividad {
+    /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
+    Id: number;
+  }
+  export interface IActividades {
+    Actividad: ServiceSoap12Types.IActividad[];
+  }
   export interface IFECAEDetRequest {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    Concepto: number; // int;
+    Concepto: number;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    DocTipo: number; // int;
+    DocTipo: number;
     /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
     DocNro: number;
     /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
@@ -634,12 +680,17 @@ export namespace ServiceSoap12Types {
     MonId: string;
     /** http://ar.gov.afip.dif.FEV1/#s:double(undefined) */
     MonCotiz: number;
+    /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
+    CanMisMonExt?: string;
+    /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
+    CondicionIVAReceptorId: number;
     CbtesAsoc?: ServiceSoap12Types.ICbtesAsoc;
     Tributos?: ServiceSoap12Types.ITributos;
     Iva?: ServiceSoap12Types.IIva;
     Opcionales?: ServiceSoap12Types.IOpcionales;
     Compradores?: ServiceSoap12Types.ICompradores;
     PeriodoAsoc?: ServiceSoap12Types.IPeriodoAsoc;
+    Actividades?: ServiceSoap12Types.IActividades;
   }
   export interface IFeCAEReq {
     FeCabReq: ServiceSoap12Types.IFeCabReq;
@@ -651,13 +702,13 @@ export namespace ServiceSoap12Types {
     /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
     Cuit: number;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    PtoVta: number; // int;
+    PtoVta: number;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    CbteTipo: number; // int;
+    CbteTipo: number;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     FchProceso: string;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    CantReg: number; // int;
+    CantReg: number;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     Resultado: string;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
@@ -665,7 +716,7 @@ export namespace ServiceSoap12Types {
   }
   export interface IObs {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    Code: number; // int;
+    Code: number;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     Msg: string;
   }
@@ -674,9 +725,9 @@ export namespace ServiceSoap12Types {
   }
   export interface IFECAEDetResponse {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    Concepto: number; // int;
+    Concepto: number;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    DocTipo: number; // int;
+    DocTipo: number;
     /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
     DocNro: number;
     /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
@@ -695,7 +746,7 @@ export namespace ServiceSoap12Types {
   }
   export interface IEvt {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    Code: number; // int;
+    Code: number;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     Msg: string;
   }
@@ -704,7 +755,7 @@ export namespace ServiceSoap12Types {
   }
   export interface IErr {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    Code: number; // int;
+    Code: number;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     Msg: string;
   }
@@ -721,7 +772,7 @@ export namespace ServiceSoap12Types {
   }
   export interface IFECompTotXRequestResult {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    RegXReq: number; // int;
+    RegXReq: number;
     Errors: ServiceSoap12Types.IErrors;
     Events: ServiceSoap12Types.IEvents;
   }
@@ -735,28 +786,28 @@ export namespace ServiceSoap12Types {
   }
   export interface IFECompUltimoAutorizadoResult {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    PtoVta: number; // int;
+    PtoVta: number;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    CbteTipo: number; // int;
+    CbteTipo: number;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    CbteNro: number; // int;
+    CbteNro: number;
     Errors: ServiceSoap12Types.IErrors;
     Events: ServiceSoap12Types.IEvents;
   }
   export interface IFeCompConsReq {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    CbteTipo: number; // int;
+    CbteTipo: number;
     /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
     CbteNro: number;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    PtoVta: number; // int;
+    PtoVta: number;
   }
   export interface IFECompConsultarResult {
     ResultGet: {
       /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-      Concepto: number; // int;
+      Concepto: number;
       /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-      DocTipo: number; // int;
+      DocTipo: number;
       /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
       DocNro: number;
       /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
@@ -787,12 +838,17 @@ export namespace ServiceSoap12Types {
       MonId: string;
       /** http://ar.gov.afip.dif.FEV1/#s:double(undefined) */
       MonCotiz: number;
+      /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
+      CanMisMonExt: string;
+      /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
+      CondicionIVAReceptorId: number;
       CbtesAsoc: ServiceSoap12Types.ICbtesAsoc;
       Tributos: ServiceSoap12Types.ITributos;
       Iva: ServiceSoap12Types.IIva;
       Opcionales: ServiceSoap12Types.IOpcionales;
       Compradores: ServiceSoap12Types.ICompradores;
       PeriodoAsoc: ServiceSoap12Types.IPeriodoAsoc;
+      Actividades: ServiceSoap12Types.IActividades;
       /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
       Resultado: string;
       /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
@@ -805,18 +861,18 @@ export namespace ServiceSoap12Types {
       FchProceso: string;
       Observaciones: ServiceSoap12Types.IObservaciones;
       /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-      PtoVta: number; // int;
+      PtoVta: number;
       /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-      CbteTipo: number; // int;
+      CbteTipo: number;
     };
     Errors: ServiceSoap12Types.IErrors;
     Events: ServiceSoap12Types.IEvents;
   }
   export interface IFECAEADetRequest {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    Concepto: number; // int;
+    Concepto: number;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    DocTipo: number; // int;
+    DocTipo: number;
     /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
     DocNro: number;
     /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
@@ -838,21 +894,26 @@ export namespace ServiceSoap12Types {
     /** http://ar.gov.afip.dif.FEV1/#s:double(undefined) */
     ImpIVA: number;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
-    FchServDesde: string;
+    FchServDesde?: string;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
-    FchServHasta: string;
+    FchServHasta?: string;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
-    FchVtoPago: string;
+    FchVtoPago?: string;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     MonId: string;
     /** http://ar.gov.afip.dif.FEV1/#s:double(undefined) */
     MonCotiz: number;
-    CbtesAsoc: ServiceSoap12Types.ICbtesAsoc;
-    Tributos: ServiceSoap12Types.ITributos;
-    Iva: ServiceSoap12Types.IIva;
-    Opcionales: ServiceSoap12Types.IOpcionales;
-    Compradores: ServiceSoap12Types.ICompradores;
-    PeriodoAsoc: ServiceSoap12Types.IPeriodoAsoc;
+    /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
+    CanMisMonExt?: string;
+    /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
+    CondicionIVAReceptorId: number;
+    CbtesAsoc?: ServiceSoap12Types.ICbtesAsoc;
+    Tributos?: ServiceSoap12Types.ITributos;
+    Iva?: ServiceSoap12Types.IIva;
+    Opcionales?: ServiceSoap12Types.IOpcionales;
+    Compradores?: ServiceSoap12Types.ICompradores;
+    PeriodoAsoc?: ServiceSoap12Types.IPeriodoAsoc;
+    Actividades?: ServiceSoap12Types.IActividades;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     CAEA: string;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
@@ -866,9 +927,9 @@ export namespace ServiceSoap12Types {
   }
   export interface IFECAEADetResponse {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    Concepto: number; // int;
+    Concepto: number;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    DocTipo: number; // int;
+    DocTipo: number;
     /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
     DocNro: number;
     /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
@@ -896,7 +957,7 @@ export namespace ServiceSoap12Types {
       /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
       CAEA: string;
       /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-      Periodo: number; // int;
+      Periodo: number;
       /** http://ar.gov.afip.dif.FEV1/#s:short(undefined) */
       Orden: number;
       /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
@@ -918,7 +979,7 @@ export namespace ServiceSoap12Types {
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     FchProceso: string;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    PtoVta: number; // int;
+    PtoVta: number;
   }
   export interface IFECAEASinMovimientoConsultarResult {
     ResultGet: {
@@ -933,7 +994,7 @@ export namespace ServiceSoap12Types {
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     FchProceso: string;
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    PtoVta: number; // int;
+    PtoVta: number;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     Resultado: string;
     Errors: ServiceSoap12Types.IErrors;
@@ -944,7 +1005,7 @@ export namespace ServiceSoap12Types {
       /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
       CAEA: string;
       /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-      Periodo: number; // int;
+      Periodo: number;
       /** http://ar.gov.afip.dif.FEV1/#s:short(undefined) */
       Orden: number;
       /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
@@ -1042,7 +1103,7 @@ export namespace ServiceSoap12Types {
   }
   export interface IConceptoTipo {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    Id: number; // int;
+    Id: number;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     Desc: string;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
@@ -1059,7 +1120,7 @@ export namespace ServiceSoap12Types {
   }
   export interface IPtoVenta {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    Nro: number; // int;
+    Nro: number;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     EmisionTipo: string;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
@@ -1076,7 +1137,7 @@ export namespace ServiceSoap12Types {
   }
   export interface ICbteTipo {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    Id: number; // int;
+    Id: number;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     Desc: string;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
@@ -1091,9 +1152,24 @@ export namespace ServiceSoap12Types {
     Errors: ServiceSoap12Types.IErrors;
     Events: ServiceSoap12Types.IEvents;
   }
+  export interface ICondicionIvaReceptor {
+    /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
+    Id: number;
+    /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
+    Desc: string;
+    /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
+    Cmp_Clase: string;
+  }
+  export interface IFEParamGetCondicionIvaReceptorResult {
+    ResultGet: {
+      CondicionIvaReceptor: ServiceSoap12Types.ICondicionIvaReceptor[];
+    };
+    Errors: ServiceSoap12Types.IErrors;
+    Events: ServiceSoap12Types.IEvents;
+  }
   export interface IDocTipo {
     /** http://ar.gov.afip.dif.FEV1/#s:int(undefined) */
-    Id: number; // int;
+    Id: number;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
     Desc: string;
     /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
@@ -1117,6 +1193,21 @@ export namespace ServiceSoap12Types {
   export interface IFEParamGetTiposPaisesResult {
     ResultGet: {
       PaisTipo: ServiceSoap12Types.IPaisTipo[];
+    };
+    Errors: ServiceSoap12Types.IErrors;
+    Events: ServiceSoap12Types.IEvents;
+  }
+  export interface IActividadesTipo {
+    /** http://ar.gov.afip.dif.FEV1/#s:long(undefined) */
+    Id: number;
+    /** http://ar.gov.afip.dif.FEV1/#s:short(undefined) */
+    Orden: number;
+    /** http://ar.gov.afip.dif.FEV1/#s:string(undefined) */
+    Desc: string;
+  }
+  export interface IFEParamGetActividadesResult {
+    ResultGet: {
+      ActividadesTipo: ServiceSoap12Types.IActividadesTipo[];
     };
     Errors: ServiceSoap12Types.IErrors;
     Events: ServiceSoap12Types.IEvents;
