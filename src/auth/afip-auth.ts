@@ -12,7 +12,7 @@ import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 import { Cryptography } from "../utils/crypt-data";
 import { Context, WSAuthParam } from "../types";
 import { EndpointsEnum } from "../enums";
-import { logger } from "../utils/logger";
+//import { logger } from "../utils/logger";
 
 export class AfipAuth {
   resolvedFolderPath: string;
@@ -162,7 +162,7 @@ export class AfipAuth {
     try {
       fs.mkdir(this.resolvedFolderPath, { recursive: true });
     } catch (error) {
-      logger.error(error.message);
+      //logger.error(error.message);
       throw error;
     }
 
