@@ -363,7 +363,7 @@ export interface IServiceSoap12Soap extends Client {
   ) => void;
   FECAEAConsultarAsync: SoapAsyncFunc<
     IFECAEAConsultarInput,
-    IFECAEAConsultarInput
+    IFECAEAConsultarOutput
   >;
   FEParamGetCotizacion: (
     input: IFEParamGetCotizacionInput,

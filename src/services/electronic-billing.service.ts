@@ -5,6 +5,7 @@ import {
   IFEDummyOutput,
   IServiceSoap12Soap,
   ServiceSoap12Types,
+  IFECAEAConsultarInput,
 } from "../soap/interfaces/Service/ServiceSoap12";
 import { WsdlPathEnum } from "../soap/wsdl-path.enum";
 import { ServiceNamesEnum } from "../soap/service-names.enum";
@@ -33,14 +34,25 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
 
   /**
    * 
-   * @param req 
+   * @param req object { 
+   * 
+   * CAEA: string; 
+   * 
+   * PtoVta: number;
+   * 
+   * } 
    * 
    **/
-    async consultCAEAStatus(req: IFECAEASinMovimientoConsultarInput) {
+    async consultCAEAStatus({CAEA, PtoVta}: IFECAEASinMovimientoConsultarInput) {
       const client = await this.getClient();
-      const [output] = await client.FECAEASinMovimientoConsultarAsync(req);
+      const [output] = await client.FECAEASinMovimientoConsultarAsync({CAEA, PtoVta});
+
+      const {FECAEASinMovimientoConsultarResult} = output
       
-      return output;
+      return {
+        response: FECAEASinMovimientoConsultarResult.ResultGet,
+        FchProceso: FECAEASinMovimientoConsultarResult.ResultGet?.FECAEASinMov[0].FchProceso
+      };
     }
   
   /**
@@ -50,26 +62,37 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
    * PtoVta: number;
    * 
    * CAEA: string;
+   * 
    * }
    * 
    **/
-  async informUnusedCAEA(req: IFECAEASinMovimientoInformarInput) {
+  async informUnusedCAEA({PtoVta, CAEA}: IFECAEASinMovimientoInformarInput) {
     const client = await this.getClient();
-    const [output] = await client.FECAEASinMovimientoInformarAsync(req);
+    const [output] = await client.FECAEASinMovimientoInformarAsync({PtoVta, CAEA});
+
+    const {FECAEASinMovimientoInformarResult} = output
     
-    return output;
+    return {
+      response: FECAEASinMovimientoInformarResult,
+      result: FECAEASinMovimientoInformarResult.Resultado};
   }
 
   /**
    * Solicitar un CAEA (CAE Anticipado)
    * 
-   * @param req 
+   * @param req object {
+   * 
+   * Periodo: number; (YYYYMM)
+   * 
+   * Orden: 1 | 2;
+   * 
+   * }
    **/
-  async createCAEARequest(req: ICAEARequest) {
+  async createCAEARequest({Periodo, Orden}: ICAEARequest) {
     const client = await this.getClient();
     const [output] = await client.FECAEASolicitarAsync({
-      Periodo: req.Periodo,
-      Orden: req.Orden
+      Periodo,
+      Orden
     });
     
     const {FECAEASolicitarResult} = output;
@@ -81,10 +104,27 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
   }
 
   /**
+   * Returns a previously requested CAEA
+   * @param  
+   * @returns 
+   */
+  async consultCAEA({Periodo, Orden}: IFECAEAConsultarInput) {
+    const client = await this.getClient();
+    const [output] = await client.FECAEAConsultarAsync({Periodo, Orden});
+
+    const {FECAEAConsultarResult} = output
+
+    return {
+      response: FECAEAConsultarResult,
+      CAEA: FECAEAConsultarResult.ResultGet?.CAEA
+    }
+  }
+ 
+  /**
    * Register the voucher information for a previously 
    * requested CAEA
    * 
-   * @param req 
+   * @param req IVoucherCAEA
    **/
   async registerCAEAVoucer(req: IVoucherCAEA) {
     const client = await this.getClient();
@@ -118,7 +158,13 @@ export class ElectronicBillingService extends AfipService<IServiceSoap12Soap> {
         },
       },
     });
-    return output;
+
+    const {FECAEARegInformativoResult} = output
+    return {
+      response: FECAEARegInformativoResult,
+      FECAEADetResponse: FECAEARegInformativoResult.FeDetResp.FECAEADetResponse[0],
+      FeCabResp: FECAEARegInformativoResult.FeCabResp,
+    };
   }
 
   /**
