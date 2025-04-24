@@ -56,6 +56,7 @@ export class AfipService<T extends Client> {
         forceSoap12Headers: this._soapParams.v12,
         ...this._soapParams.options,
       },
+      wsdlString: this.context?.serviceWSDLs?.[this._serviceName]
     });
     client.setEndpoint(this._soapParams.url);
     return client;

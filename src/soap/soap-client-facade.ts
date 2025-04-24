@@ -23,10 +23,11 @@ export class SoapClientFacade {
   public static async create<T extends Client>({
     wsdl,
     options,
+    wsdlString
   }: SoapClientParams): Promise<T> {
-    return (await createClientAsync(
-      SoapClientFacade.getWsdlPath(wsdl),
-      options
-    )) as T;
+      return (await createClientAsync(
+        wsdlString || SoapClientFacade.getWsdlPath(wsdl),
+        options
+      )) as T;
   }
 }

@@ -31,6 +31,7 @@ export class AfipAuth {
           ? EndpointsEnum.WSAA
           : EndpointsEnum.WSAA_TEST,
       },
+      wsdlString: this.context?.serviceWSDLs?.wsaa
     });
   }
 

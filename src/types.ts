@@ -27,6 +27,7 @@ export type WSAuthTokens = {
 export type SoapClientParams = {
   wsdl: WsdlPathEnum;
   options?: IOptions;
+  wsdlString?: string;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -100,6 +101,20 @@ export type Context = {
    * The path of the auth obj if the package is auto managed
    */
   ticketPath?: string;
+
+  /**
+   * WSDL as string (optional).
+   */
+  serviceWSDLs?: {
+    wsaa?: string;
+    [ServiceNamesEnum.FE_DUMMY]?: string;
+    [ServiceNamesEnum.WSFE]?: string;
+    [ServiceNamesEnum.WSSR_INSCRIPTION_PROOF]?: string;
+    [ServiceNamesEnum.WSSR_PADRON_FOUR]?: string;
+    [ServiceNamesEnum.WSSR_PADRON_FIVE]?: string;
+    [ServiceNamesEnum.WSSR_PADRON_TEN]?: string;
+    [ServiceNamesEnum.WSSR_PADRON_THIRTEEN]?: string;
+  };
 };
 
 export interface IVoucher {
