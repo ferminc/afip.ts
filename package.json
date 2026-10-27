@@ -33,6 +33,8 @@
     "vitepress": "1.2.3",
     "wsdl-to-ts": "^0.2.3",
     "dotenv": "^16.3.1",
+    "moment": "^2.31.0",
+    "winston": "^3.19.0",
     "wsdl-tsclient": "^1.7.1"
   },
   "dependencies": {
