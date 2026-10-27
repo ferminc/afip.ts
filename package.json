@@ -33,13 +33,11 @@
     "vitepress": "1.2.3",
     "wsdl-to-ts": "^0.2.3",
     "dotenv": "^16.3.1",
-    "moment": "^2.29.4",
-    "winston": "^3.10.0",
     "wsdl-tsclient": "^1.7.1"
   },
   "dependencies": {
-    "node-forge": "^1.4.0",
-    "soap": "^1.10.0",
+    "node-forge": "^1.4.2",
+    "soap": "^1.14.0",
     "xml2js": "^0.6.2"
   },
   "publishConfig": {
